@@ -19,21 +19,21 @@ import { Header, Sidebar, Content, Footer } from 'components/Layout';
 import GAListener from 'components/GAListener';
 
 // pages
-import DashboardPage from 'pages/DashboardPage';
-import WidgetPage from 'pages/WidgetPage';
+import home from 'pages/homePage';
+import opinion from 'pages/opinion';
 import ButtonPage from 'pages/ButtonPage';
 import TypographyPage from 'pages/TypographyPage';
 import AlertPage from 'pages/AlertPage';
-import TablePage from 'pages/TablePage';
-import CardPage from 'pages/CardPage';
+import map from 'pages/mapPage';
+import p3 from 'pages/p3Page';
 import BadgePage from 'pages/BadgePage';
 import ButtonGroupPage from 'pages/ButtonGroupPage';
 import DropdownPage from 'pages/DropdownPage';
-import ProgressPage from 'pages/ProgressPage';
+import question from 'pages/questionPage';
 import ModalPage from 'pages/ModalPage';
 import FormPage from 'pages/FormPage';
 import InputGroupPage from 'pages/InputGroupPage';
-import ChartPage from 'pages/ChartPage';
+import market from 'pages/marketPage';
 
 import './styles/reduction.css';
 
@@ -60,7 +60,7 @@ class App extends React.Component {
     setTimeout(() => {
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to Reduction Admin!',
+      message: 'Welome to BO:M Admin!',
         level: 'info',
       });
     }, 1500);
@@ -69,7 +69,7 @@ class App extends React.Component {
       this.notificationSystem.addNotification({
         title: <MdLoyalty />,
         message:
-          'Reduction is carefully designed template powered by React and Bootstrap4!',
+          'BO:M is carefully designed template powered by React and Bootstrap4!',
         level: 'info',
       });
     }, 2500);
@@ -121,21 +121,21 @@ class App extends React.Component {
             <Content fluid onClick={this.handleContentClick}>
               <Header />
               <Switch>
-                <Route exact path="/" component={DashboardPage} />
+                <Route exact path="/" component={home} />
                 <Route path="/buttons" component={ButtonPage} />
-                <Route path="/cards" component={CardPage} />
-                <Route path="/widgets" component={WidgetPage} />
+                <Route path="/3p" component={p3} />
+                <Route path="/opinion" component={opinion} />
                 <Route path="/typography" component={TypographyPage} />
                 <Route path="/alerts" component={AlertPage} />
-                <Route path="/tables" component={TablePage} />
+                <Route path="/map" component={map} />
                 <Route path="/badges" component={BadgePage} />
                 <Route path="/button-groups" component={ButtonGroupPage} />
                 <Route path="/dropdowns" component={DropdownPage} />
-                <Route path="/progress" component={ProgressPage} />
+                <Route path="/question" component={question} />
                 <Route path="/modals" component={ModalPage} />
                 <Route path="/forms" component={FormPage} />
                 <Route path="/input-groups" component={InputGroupPage} />
-                <Route path="/charts" component={ChartPage} />
+                <Route path="/market" component={market} />
                 <Redirect to="/" />
               </Switch>
               <Footer />
