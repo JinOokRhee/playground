@@ -3,120 +3,167 @@ import PropTypes  from 'react';
 
 import { getColor } from 'utils/colors';
 import { randomNum } from 'utils/demos';
-import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody,Table } from 'reactstrap';
 //import { Line, Pie, Doughnut, Bar, Radar, Polar } from 'react-chartjs-2';
 import Page from 'components/Page';
 import { AreaChart, Area,LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, Cell,Radar, RadarChart, PolarGrid,
-         PolarAngleAxis, PolarRadiusAxis} from 'recharts';
+         PolarAngleAxis, PolarRadiusAxis,LabelList,Label,Brush,ReferenceLine,PieChart, Pie, Sector,ResponsiveContainer} from 'recharts';
 
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+         const scolors = ['#ed2939', '#00C49F', '#FFBB28', '#FF8042','#404040','#6f7080'];
+         const RADIAN = Math.PI / 180;
+         const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+          	const radius = innerRadius + (outerRadius - innerRadius) * 1.4;
+           const x  = cx + radius * Math.cos(-midAngle * RADIAN);
+           const y = cy  + radius * Math.sin(-midAngle * RADIAN);
 
-const data = require('./aaa.json');
-const tcolors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
-const getPath = (x, y, width, height) => {
-  return `M${x},${y + height}
-          C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3} ${x + width / 2}, ${y}
-          C${x + width / 2},${y + height / 3} ${x + 2 * width / 3},${y + height} ${x + width}, ${y + height}
-          Z`;
-};
+           return (
+             <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+             	{`${(percent * 100).toFixed(0)}%`}
+             </text>
+           );
+         };
 
-const TriangleBar = (props) => {
-const { fill, x, y, width, height } = props;
-
-  return <path d={getPath(x, y, width, height)} stroke="none" fill={fill}/>;
-};
-
-TriangleBar.propTypes = {
-  fill: PropTypes.string,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number,
-};
+const acolors = ['#404040', '#404040', '#ed2939', '#404040', '#404040', '#404040'];
 
 
-const genLineData = (moreData = {}, moreData2 = {}) => {
-  return {
-    labels: MONTHS,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        backgroundColor: getColor('primary'),
-        borderColor: getColor('primary'),
-        borderWidth: 1,
-        data: [
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-        ],
-        ...moreData,
-      },
-      {
-        label: 'Dataset 2',
-        backgroundColor: getColor('secondary'),
-        borderColor: getColor('secondary'),
-        borderWidth: 1,
-        data: [
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-          randomNum(),
-        ],
-        ...moreData2,
-      },
-    ],
-  };
-};
+         class marketPage extends React.Component  {
+           state = {
+             age: require('./bar_age.json'),
+               skin: require('./bar_skin.json'),
+               ourskin: require('./ourproductskin.json')
+            };
+          async componentDidMount() {
+             try {
+               const res = await fetch('http://127.0.0.1:8000/api/bar_skin');
+               const product = await res.json();
+               this.setState({
+                 product
+               });
+             } catch (e) {
+               console.log(e);
+             }
+           }
+         render() {
+           return (
+             <Page title="시장 세분화" breadcrumbs={[{ name: '시장 세분화', active: true }]}>
 
-const genPieData = () => {
-  return {
-    datasets: [
-      {
-        data: [randomNum(), randomNum(), randomNum(), randomNum(), randomNum()],
-        backgroundColor: [
-          getColor('primary'),
-          getColor('secondary'),
-          getColor('success'),
-          getColor('info'),
-          getColor('danger'),
-        ],
-        label: 'Dataset 1',
-      },
-    ],
-    labels: ['Data 1', 'Data 2', 'Data 3', 'Data 4', 'Data 5'],
-  };
-};
+               <Row>
+                 <Col align="center">
+                   <Card>
+                     <CardHeader>
+                       피부타입 분포{' '}
+                       <small className="text-muted text-capitalize">skin_type</small>
+                     </CardHeader>
+                     <CardBody>
+                       <PieChart width={1300} height={600}>
+                   <Pie isAnimationActive={false} data={this.state.skin} cx={300} cy={300} innerRadius={100} outerRadius={180} fill="#8884d8" label={renderCustomizedLabel}>
+                      <LabelList dataKey="name" />
+                      <Label value="전체 제품" offset={100} position="center" />
+                        {
+                     	this.state.skin.map((entry, index) => <Cell fill={scolors[index % scolors.length]}/>)
+                     }
+                      </Pie>
+                   <Pie data={this.state.ourskin} cx={1000} cy={300} innerRadius={150} outerRadius={250} fill="#82ca9d" label={renderCustomizedLabel}>
+                     <LabelList dataKey="name" />
+                     <Label value="선택된 제품" offset={100} position="center" />
+                       {
+                     	this.state.skin.map((entry, index) => <Cell fill={scolors[index % scolors.length]}/>)
+                     }
+                     </Pie>
+                   <Tooltip/>
+                  </PieChart>
+                     </CardBody>
+                   </Card>
+                 </Col>
 
-const ChartPage = () => {
-  return (
-    <Page title="Charts" breadcrumbs={[{ name: 'Charts', active: true }]}>
-      <Row>
-        <Col xl={6} lg={12} md={12}>
-          <BarChart width={1300} height={300} data={data}
-                    margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-               <XAxis dataKey="name"/>
-               <YAxis/>
-               <CartesianGrid strokeDasharray="1 1"/>
-               <Bar dataKey="count" fill="#8884d8" shape={<TriangleBar/>} label={{ position: 'top' }}>
-                 {
-                    data.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={tcolors[index % 10]}/>
-                    ))
-                  }
-               </Bar>
-              </BarChart>
-        </Col>
 
-      </Row>
-    </Page>
-  );
-};
+               </Row>
+               <Row>
+                 <Col align="center">
+                   <Card>
+                     <CardHeader>
+                       연령 분포{' '}
+                       <small className="text-muted text-capitalize">age</small>
+                     </CardHeader>
+                     <CardBody>
+                       <PieChart width={800} height={650}>
+                   <Pie isAnimationActive={false} data={this.state.age} cx={370} cy={350} innerRadius={150} outerRadius={250} fill="#8884d8" label={renderCustomizedLabel}>
+                      <LabelList dataKey="name" />
+                      <Label value="전체 제품" offset={100} position="center" />
+                        {
+                     	this.state.age.map((entry, index) => <Cell fill={acolors[index % acolors.length]}/>)
+                     }
+                      </Pie>
 
-export default ChartPage;
+                   <Tooltip/>
+                  </PieChart>
+                     </CardBody>
+                   </Card>
+                 </Col>
+                 <Col>
+
+                   <Card body>
+                     <Table dark>
+                       <thead>
+                         <tr>
+                           <th>#</th>
+                           <th>age</th>
+                           <th>count</th>
+                           <th>percentage</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                           <th scope="row">1</th>
+                           <td>23~27세</td>
+                           <td>62302</td>
+                           <td>44%</td>
+                         </tr>
+                         <tr>
+                           <th scope="row">2</th>
+                           <td>18~22세</td>
+                           <td>43249</td>
+                           <td>31%</td>
+                         </tr>
+                         <tr>
+                           <th scope="row">3</th>
+                           <td>28~32세</td>
+                           <td>16785</td>
+                           <td>12%</td>
+                         </tr>
+                         <tr>
+                           <th scope="row">4</th>
+                           <td>17세 이하</td>
+                           <td>10949</td>
+                           <td>8%</td>
+                         </tr>
+                         <tr>
+                           <th scope="row">5</th>
+                           <td>33~37세</td>
+                           <td>5443</td>
+                           <td>4%</td>
+                         </tr>
+                         <tr>
+                           <th scope="row">6</th>
+                           <td>38세 이상</td>
+                           <td>2256</td>
+                           <td>2%</td>
+                         </tr>
+                          <tr>
+                           <th scope="row">Selected product Avg</th>
+                           <td>23세</td>
+                           <td></td>
+                           <td></td>
+                         </tr>
+                       </tbody>
+                     </Table>
+                   </Card>
+                 </Col>
+
+               </Row>
+             </Page>
+
+           );
+         };
+         }
+         export default marketPage;

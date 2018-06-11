@@ -1,343 +1,60 @@
 import Page from 'components/Page';
 import React from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend,Cell} from 'recharts';
+import { AnnouncementCard, TodosCard } from 'components/Card';
 
-const tableTypes = ['', 'bordered', 'striped', 'hover'];
+const colors = ['red', 'green', 'orange', 'yellow', 'pink', 'blue', 'black', 'grey',"#A9F5F2","#610B0B"];
 
-const TablePage = () => {
+class marketPage extends React.Component  {
+  state = {
+    positioning: require('./positioning_map.json'),
+      positioning2: require('./positioning_map2.json')
+
+   };
+ async componentDidMount() {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/bar_skin');
+      const product = await res.json();
+      this.setState({
+        product
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+render() {
   return (
-    <Page
-      title="Tables"
-      breadcrumbs={[{ name: 'tables', active: true }]}
-      className="TablePage">
-      {tableTypes.map((tableType, index) => (
-        <Row key={index}>
-          <Col>
-            <Card className="mb-3">
-              <CardHeader>{tableType || 'default'}</CardHeader>
-              <CardBody>
-                <Row>
-                  <Col>
-                    <Card body>
-                      <Table {...{ [tableType]: true }}>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </Card>
-                  </Col>
-
-                  <Col>
-                    <Card body>
-                      <Table dark>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </Card>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      ))}
+    <Page title="포지셔닝 맵" breadcrumbs={[{ name: '포지셔닝 맵', active: true }]}>
 
       <Row>
-        <Col>
-          <Card className="mb-3">
-            <CardHeader>Contextual</CardHeader>
+        <Col align="center">
+          <Card>
             <CardBody>
-              <Table>
-                <thead>
-                  <tr>
-                    <th scope="col">Type</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="table-active">
-                    <th scope="row">Active</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-
-                  <tr className="table-primary">
-                    <th scope="row">Primary</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-secondary">
-                    <th scope="row">Secondary</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-success">
-                    <th scope="row">Success</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-danger">
-                    <th scope="row">Danger</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-warning">
-                    <th scope="row">Warning</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-info">
-                    <th scope="row">Info</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-light">
-                    <th scope="row">Light</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-dark">
-                    <th scope="row">Dark</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        </Col>
-
-        <Col>
-          <Card className="mb-3">
-            <CardHeader>Contextual</CardHeader>
-            <CardBody>
-              <Table dark>
-                <thead>
-                  <tr>
-                    <th scope="col">Type</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="table-active">
-                    <th scope="row">Active</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-
-                  <tr className="table-primary">
-                    <th scope="row">Primary</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-secondary">
-                    <th scope="row">Secondary</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-success">
-                    <th scope="row">Success</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-danger">
-                    <th scope="row">Danger</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-warning">
-                    <th scope="row">Warning</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-info">
-                    <th scope="row">Info</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-light">
-                    <th scope="row">Light</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                  <tr className="table-dark">
-                    <th scope="row">Dark</th>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                    <td>Column content</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        </Col>
+              <ScatterChart width={1000} height={600} margin={{top: 0, right: 0, bottom: 0, left: 0}}>
+        	<XAxis type="number" dataKey={'x'} />
+        	<YAxis type="number" dataKey={'y'} />
+          <ZAxis type="number" range={[100, 400]} dataKey={'pname'} name='name'/>
+          <CartesianGrid />
+        	<Tooltip cursor={{strokeDasharray: '1 1'}}/>
+          <Legend />
+        	<Scatter data={this.state.positioning} fill='#8884d8'  animationDuration='2000'>
+            {
+           this.state.positioning.map((entry, index) => {
+             return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+           })
+         }
+         </Scatter>
+         <Scatter data={this.state.positioning2} fill='red' shape="star" animationDuration='2000'/>
+</ScatterChart>
+       </CardBody>
+       </Card>
+</Col>
       </Row>
 
-      <Row>
-        <Col>
-          <Card className="mb-3">
-            <CardHeader>Responsive</CardHeader>
-            <CardBody>
-              <Table responsive>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <Card className="mb-3">
-            <CardHeader>Size</CardHeader>
-            <CardBody>
-              <Table size="sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
     </Page>
+
   );
 };
-
-export default TablePage;
+}
+export default marketPage;
