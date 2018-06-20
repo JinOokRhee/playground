@@ -109,12 +109,10 @@ class homePage extends React.Component {
       <Col >
         <NumberWidget
           title="긍정점수"
-          subtitle="This month"
-          number="9,800"
+          number="765"
           color="primary"
           progress={{
-            value: 75,
-            label: 'Last month',
+            value: 74
           }}
         />
       </Col>
@@ -122,12 +120,10 @@ class homePage extends React.Component {
       <Col >
         <NumberWidget
           title="부정점수"
-          subtitle="This month"
-          number="5,400"
+          number="264"
           color="secondary"
           progress={{
-            value: 25,
-            label: 'Last month',
+            value: 25
           }}
         />
       </Col>
