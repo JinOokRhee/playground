@@ -1,10 +1,10 @@
-# [캡스톤 봄 프로젝트](https://reduction-admin.github.io/react-reduction/)
+# [캡스톤 봄 프로젝트](https://github.com/JinOokRhee/playground.git)
 
 ![alt text](public/img/screenshots/reduction-admin.jpg?raw=true 'React Reduction')
 
 ## Preview
 
-You can check out [live preview](https://reduction-admin.github.io/react-reduction/).
+You can check out [live preview](https://github.com/JinOokRhee/playground.git).
 
 ## Quick Start
 
