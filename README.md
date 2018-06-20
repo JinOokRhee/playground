@@ -1,6 +1,6 @@
 # [캡스톤 봄 프로젝트](https://github.com/JinOokRhee/playground.git)
 
-![alt text](public/img/screenshots/reduction-admin.jpg?raw=true 'React Reduction')
+![alt text](public/img/screenshots/reduction-admin.jpg?raw=true 'bom_project')
 
 ## Preview
 
