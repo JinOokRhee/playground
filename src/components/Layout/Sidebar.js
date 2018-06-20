@@ -52,8 +52,10 @@ const navItems = [
   { to: '/3p', name: '3P 전략', exact: false, Icon: MdWeb },
   { to: '/market', name: '시장 세분화', exact: false, Icon: MdInsertChart },
   { to: '/map', name: '포지셔닝 맵', exact: false, Icon: MdViewDay },
-  { to: '/opinion', name: '소비자 오피니언 분석', exact: false, Icon: MdStar },
-  { to: '/question', name: '소비자에게 물어 BO:M', exact: false, Icon: MdSend },
+  { to: '/opinion', name: '긍정 오피니언 분석', exact: false, Icon: MdStar },
+  { to: '/opinion2', name: '부정 오피니언 분석', exact: false, Icon: MdStar },
+  { to: '/network', name: '네트워크 그래프', exact: false, Icon: MdSend }
+
 
 ];
 

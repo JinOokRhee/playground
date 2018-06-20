@@ -34,6 +34,8 @@ import ModalPage from 'pages/ModalPage';
 import FormPage from 'pages/FormPage';
 import InputGroupPage from 'pages/InputGroupPage';
 import market from 'pages/marketPage';
+import opinion2 from 'pages/opinion2';
+import network from 'pages/network';
 
 import './styles/reduction.css';
 
@@ -125,6 +127,7 @@ class App extends React.Component {
                 <Route path="/buttons" component={ButtonPage} />
                 <Route path="/3p" component={p3} />
                 <Route path="/opinion" component={opinion} />
+                <Route path="/opinion2" component={opinion2} />
                 <Route path="/typography" component={TypographyPage} />
                 <Route path="/alerts" component={AlertPage} />
                 <Route path="/map" component={map} />
@@ -136,6 +139,7 @@ class App extends React.Component {
                 <Route path="/forms" component={FormPage} />
                 <Route path="/input-groups" component={InputGroupPage} />
                 <Route path="/market" component={market} />
+                <Route path="/network" component={network} />
                 <Redirect to="/" />
               </Switch>
               <Footer />

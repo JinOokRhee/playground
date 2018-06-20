@@ -3,7 +3,7 @@ import PropTypes  from 'react';
 
 import { getColor } from 'utils/colors';
 import { randomNum } from 'utils/demos';
-import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody,Table } from 'reactstrap';
 //import { Line, Pie, Doughnut, Bar, Radar, Polar } from 'react-chartjs-2';
 import { NumberWidget, IconWidget } from 'components/Widget';
 import Page from 'components/Page';
@@ -157,6 +157,7 @@ render() {
 
       </BarChart>
             </CardBody>
+
           </Card>
         </Col>
 

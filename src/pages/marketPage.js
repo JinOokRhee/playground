@@ -98,11 +98,6 @@ const acolors = ['#404040', '#404040', '#ed2939', '#404040', '#404040', '#404040
                    <Tooltip/>
                   </PieChart>
                      </CardBody>
-                   </Card>
-                 </Col>
-                 <Col>
-
-                   <Card body>
                      <Table dark>
                        <thead>
                          <tr>
@@ -159,6 +154,7 @@ const acolors = ['#404040', '#404040', '#ed2939', '#404040', '#404040', '#404040
                      </Table>
                    </Card>
                  </Col>
+
 
                </Row>
              </Page>

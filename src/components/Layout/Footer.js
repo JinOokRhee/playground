@@ -9,7 +9,7 @@ const Footer = () => {
     <Navbar>
       <Nav navbar>
         <NavItem>
-          Welcome BO:M Project !!!! <SourceLink>HOME</SourceLink>
+        
         </NavItem>
       </Nav>
     </Navbar>

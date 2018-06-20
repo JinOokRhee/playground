@@ -34,10 +34,10 @@ render() {
               <ScatterChart width={1000} height={600} margin={{top: 0, right: 0, bottom: 0, left: 0}}>
         	<XAxis type="number" dataKey={'x'} />
         	<YAxis type="number" dataKey={'y'} />
-          <ZAxis type="number" range={[100, 400]} dataKey={'pname'} name='name'/>
+          <ZAxis type="number" range={[200, 4000]} dataKey={'pname'} name='name'/>
           <CartesianGrid />
         	<Tooltip cursor={{strokeDasharray: '1 1'}}/>
-          <Legend />
+
         	<Scatter data={this.state.positioning} fill='#8884d8'  animationDuration='2000'>
             {
            this.state.positioning.map((entry, index) => {
@@ -47,6 +47,21 @@ render() {
          </Scatter>
          <Scatter data={this.state.positioning2} fill='red' shape="star" animationDuration='2000'/>
 </ScatterChart>
+<Table light>
+  <thead>
+    <tr>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">고객이 느끼는 제품별 실제 속성을 파악하여 이를 한 눈에 알아보고자 포지셔닝맵을 그리고자 하였다.
+이를 위해, 고객의 리뷰 약 30만개를 텍스트 마이닝 분석 기법 중 word2vec을 이용하여 1058개의 속성을 뽑아내었다.
+이후, 이를 PCA(주성분분석)을 해서 전체의 약 82%를 설명할 수 있는 2개의 차원으로 축소하여 개별 제품을 의미하는 점을 표시하여 그래프를 그렸다.</th>
+    </tr>
+  </tbody>
+</Table>
+
        </CardBody>
        </Card>
 </Col>
